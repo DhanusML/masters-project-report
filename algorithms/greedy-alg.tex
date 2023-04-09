@@ -1,0 +1,40 @@
+\begin{algorithm}
+\caption{Greedy$(G)$}
+\begin{algorithmic}[1]
+
+\STATE $H_{rs}\leftarrow$ InitPathBasedAlg$(G)$
+\STATE Update link flows and derivatives
+\STATE Repeat the rest of the code till convergence.
+\FOR{$r\in Z$}
+	\STATE DIJSKTRA$(G, r)$
+	\FOR{$s\in Z$}
+		\STATE $\hat{h}\leftarrow$ Shortest path between $r$ and $s$
+		\IF{$\hat{h}\notin H_{rs}$}
+			\STATE $H_{rs}\leftarrow H_{rs}\cup \{\hat{h}\}$
+		\ENDIF
+		\STATE $H_{rs}\leftarrow$ GreedyLoop$(H_{rs})$
+	\ENDFOR
+\ENDFOR
+
+\STATE $I\leftarrow 0$, Max$I\leftarrow 1000$, $FC\leftarrow 0$
+\WHILE{$I<$Max$I$}
+	\STATE $I\leftarrow I+1$, $FC\leftarrow 0$
+	\FOR{each O-D pair $(r,s)$}
+		\IF{$I\%100$ is 0}
+			\STATE$\Delta_{rs}\leftarrow \max{v_h}-\min{v_h}$, $h\in H_{rs}$
+		\ENDIF
+
+		\IF{$\Delta>$RG$^{k-1}/2$}
+			\STATE $FC\leftarrow FC+1$
+			\STATE $H_{rs}\leftarrow$ GreedyLoop$(H_{rs})$
+			\STATE Update link flows, link times and link derivatives
+		\ENDIF
+	\ENDFOR
+
+	\IF{$FC$ is $0$}
+		\STATE \textbf{break}
+	\ENDIF
+\ENDWHILE
+
+\end{algorithmic}
+\end{algorithm}

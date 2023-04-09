@@ -1,6 +1,7 @@
 \begin{algorithm}
 \caption{InitializeLinkFlowAlg(G)}
-\begin{algorithmic}
+\label{alg:initlink}
+\begin{algorithmic}[1]
 \FOR{$r\in Z$} %\COMMENT{Initialization}
 	\STATE DIJSKTRA$(G,r)$
 	\FOR{$s\in Z, (i,j)\in p_{rs}$}

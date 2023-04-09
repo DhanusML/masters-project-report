@@ -1,1 +1,9 @@
+In MSA, the link flows in the next iteration is obtained by taking
+the convex combination of the current link flow vector with
+the all or nothing link flow solution. The coefficient for
+convex combination is the inverse of the iteration number.
+This makes sure that the flow vector lies inside the feasible region,
+since the feasible region is a convex set.
+The pseudocode for MSA is given in algorithm \ref{alg:msa}.
+
 \input{algorithms/msa-alg.tex}

@@ -1,0 +1,16 @@
+\begin{algorithm}
+\caption{InitializePathFlowAlg(G)}
+\label{alg:initpath}
+\begin{algorithmic}[1]
+\FOR{$r\in Z$} %\COMMENT{Initialization}
+	\STATE DIJSKTRA$(G,r)$
+	\FOR{$s\in Z$}
+		\STATE $\hat{H}_{rs} = \emptyset$
+		\STATE Assign all $d_{rs}$ to $\hat{h}$
+		\STATE $\hat{H}\leftarrow \hat{H}\cup \{\hat{h}\}$
+	\ENDFOR
+\ENDFOR
+\RETURN $\hat{H}$
+\end{algorithmic}
+\end{algorithm}
+

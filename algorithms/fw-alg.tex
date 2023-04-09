@@ -1,0 +1,26 @@
+\begin{algorithm}
+\caption{FW$(G)$}
+\label{alg:fw}
+\begin{algorithmic}[1]
+\STATE  $\hat{x}\leftarrow$ InitializeLinkFlowAlg(G)
+
+\WHILE {RG $> 10^{-4}$}
+	\IF{$k=1$}
+		\STATE $\eta\leftarrow 1$
+	\ELSE
+		\STATE{$\eta \leftarrow$ BISECTION$(G, x, \hat{x})$}
+	\ENDIF
+
+	\STATE $x\leftarrow \eta\hat{x} + (1-\eta)x$
+	\STATE Update $t(x)$
+	\STATE $\hat{x}\leftarrow 0$
+	\FOR{$r\in Z$}
+		\STATE DIJSKTRA$(G, r)$
+		\FOR{$s\in Z,(i,j)\in p_{rs}^*$}
+			\STATE $\hat{x}_{ij} \leftarrow \hat{x}_{ij}+d_{rs}$
+		\ENDFOR
+	\ENDFOR
+	\STATE RG $\leftarrow \frac{\hbox{TSTT}}{\hbox{SPTT}} - 1$
+\ENDWHILE
+\end{algorithmic}
+\end{algorithm}

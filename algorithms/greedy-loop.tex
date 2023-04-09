@@ -1,0 +1,46 @@
+\begin{algorithm}
+\caption{GreedyLoop$(H_{rs})$}
+\begin{algorithmic}[1]
+
+\STATE The current solution is $\{g_h: h\in H_{rs}\}$
+\FOR{$h\in H_{rs}$}
+	\STATE Compute $v_h^g$ and $s_h^g$ according to ---fill----
+	\STATE Comput $c_g^g$ according to ---fill----
+\ENDFOR
+
+\STATE Sort paths $h\in H_{rs}$ accroding to the increasing
+order of $c_h^g$.\\i.e., $H_{rs} = \{1,2,3\ldots\}$ with
+$c_1^g\leq c_2^g\leq c_3^g\leq \ldots$.
+
+\STATE $B\leftarrow 1/(s_1^g d_{rs})$
+\STATE $C\leftarrow c_1^g/(s_1^g d_{rs})$
+\STATE $\bar{w}_{rs}\leftarrow (1+C)/B$
+\STATE $h\leftarrow 2, \hat{H}_{rs}\leftarrow \{1\}$
+
+\WHILE{$h\leq \abs{H_{rs}}$ and $c_h^g\leq \bar{w}_{rs}$}
+	\STATE $C\leftarrow C + c_h^g/(s_h^g d_{rs})$
+	\STATE $B\leftarrow B + 1/(s_h^g d_{rs})$
+	\STATE $\bar{w}_{rs}\leftarrow (1+C)/B$
+	\STATE $\hat{H}_{rs}\leftarrow \hat{H}_{rs}\cup \{h\}$
+	\STATE $h\leftarrow h+1$
+\ENDWHILE
+
+\FOR{$h\in \hat{H}_{rs}$}
+	\STATE $f_h\leftarrow (\bar{w}_{rs} - c_h^g)/s_h^g$
+\ENDFOR
+
+\FOR{$h\in H_{rs}\setminus \hat{H}_{rs}$}
+	\STATE $f_h\leftarrow 0$
+\ENDFOR
+
+\FOR{$h\in H_{rs}$}
+	\IF{$f_h\neq g_h$}
+		\STATE Update link flow: $x_{ij}\leftarrow x_{ij}+(f_h-g_h)$
+		\STATE Update link times and derivatives
+	\ENDIF
+\ENDFOR
+
+\STATE $H_{rs}\leftarrow \hat{H}_{rs}$
+\RETURN $\{f_h: h\in H_{rs}\}$
+\end{algorithmic}
+\end{algorithm}

@@ -50,7 +50,8 @@ making sure that the updated flows remain feasible
 across the iterations.
 
 In the current implementations, the initial feasible flow
-vector is chosen to be the all or nothing assignment.
+vector is chosen to be the all or nothing assignment. The
+pseudocode for the initialization is given in Algorithm~\ref{alg:initlink}.
 
 \input{algorithms/initialize-link-flow.tex}
 
@@ -61,6 +62,16 @@ vector is chosen to be the all or nothing assignment.
 \input{algorithms/fw.tex}
 
 \section{Path Based Methods}
+In path flow methods, the path flows are first initialized to a
+feasible flow vector. This flow vector iteratively gets updated
+till equillibrium is attained, making sure that the flow
+vector remains in the feasible region.
+
+Similar to the link based methods, the initial flow vector is
+chosen to be the all or nothing solution, where all the demand
+gets assigned to the shortest path. The pseudocode for initializing
+path based methods is given in algorithm~\ref{alg:initpath}.
+\input{algorithms/initialize-path-flow.tex}
 \subsection{Gradient Projection}
 \input{algorithms/gp.tex}
 

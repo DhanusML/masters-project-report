@@ -1,0 +1,21 @@
+\begin{algorithm}
+\caption{BISECTION$(G, x,\hat{x})$}
+\label{alg:bisection}
+\begin{algorithmic}[1]
+
+\STATE $\underline{\eta}\leftarrow 0$
+\STATE $\overline{\eta}\leftarrow 1$
+
+\WHILE{$\overline{\eta}-\underline{\eta}>\epsilon$}
+	\STATE $\eta \leftarrow \frac{1}{2}(\underline{\eta}+\overline{\eta})$
+	\IF{$\sum_{ij\in A} t_{ij}(\eta\hat{x}_{ij}+(1-\eta)x_{ij})>0$}
+		\STATE $\overline{\eta}\leftarrow \eta$
+
+	\ELSE
+		\STATE $\underline{\eta}\leftarrow \eta$
+	\ENDIF
+\ENDWHILE
+\RETURN $\eta$
+
+\end{algorithmic}
+\end{algorithm}

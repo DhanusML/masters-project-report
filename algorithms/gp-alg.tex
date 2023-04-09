@@ -1,0 +1,38 @@
+\begin{algorithm}
+\caption{GP$(G)$}
+\label{alg:gp}
+\begin{algorithmic}
+\STATE $\hat{H}\leftarrow$ InitPathFlowAlg$(G)$
+\WHILE{RG>$10^{-4}$}
+	\FOR{$r\in Z$}
+		\STATE DIJKSTRA$(G, r)$
+		\FOR{$s\in Z$}
+			\STATE shortest path $\hat{h}$
+			\IF{$\hat{h}\notin \hat{H}_{rs}$}
+				\STATE $\hat{H}_{rs}\leftarrow \hat{H}_{rs}\cup\{\hat{h}\}$
+			\ENDIF
+			\IF{$\hat{H}_{rs}$ is singleton}
+				\STATE Set the path flow to $d_{rs}$
+
+			\ELSE
+				\FOR{$h\in \hat{H}_{rs}, h\neq \hat{h}$}
+					\STATE $\hat{A}\leftarrow \{(i,j): (i,j)\in
+					(\hat{h}\cup h)\setminus (\hat{h}\cap h)\}$
+
+					\STATE $f_h\leftarrow f_h -
+					\min\bigg\{f_h, \frac{\tau_h - \tau_{\hat{h}}}
+					{\sum_{i,j\in \hat{A}} t'_{ij}(x_{ij})}\bigg\}$
+
+					\STATE $f_{\hat{h}}\leftarrow f_{\hat{h}} -
+					\min\bigg\{f_{\hat{h}}, \frac{\tau_h - \tau_{\hat{h}}}
+					{\sum_{i,j\in \hat{A}} t'_{ij}(x_{ij})}\bigg\}$
+				\ENDFOR
+			\ENDIF
+		\ENDFOR
+		\STATE Update link flows, travel times and derivatives
+	\ENDFOR
+	\STATE Remove paths from $\hat{H}$ with zero flows
+	\STATE RG$\leftarrow \frac{\hbox{TSTT}}{\hbox{SPTT}}-1$
+\ENDWHILE
+\end{algorithmic}
+\end{algorithm}
