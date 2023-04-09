@@ -5,6 +5,6 @@
 !.gitignore
 !layout_notes.md
 !header.tex
-!algorithms/
-!theory/
-!introduction/
+!algorithms
+!theory
+!introduction
