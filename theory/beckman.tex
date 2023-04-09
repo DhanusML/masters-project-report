@@ -1,0 +1,19 @@
+The Beckman formulation gives a convex function whose minimizers
+are the equillibrium path flow (or link flow) solutions
+of the traffic equillibrium problem.
+
+For a given link flow $x_{ij}$ for $i,j\in A$, the Beckman function
+is defined as
+
+\begin{equation}\label{beck}
+	\sum_{i,j\in A}\int_{0}^{x_{ij}}t_{ij}(\omega)d\omega
+\end{equation}
+
+Under a mild assumption that the link travel times 
+are increasing functions of the corresponding link flows,
+the Beckman function is convex. % insert reference to appendix or
+								% some other section here
+The flow constraints on the link flows are
+\[
+	\sum_{p\in P_{rs}}y_p = d_{rs}
+\]

@@ -1,0 +1,13 @@
+\begin{algorithm}
+\caption{InitializeLinkFlowAlg(G)}
+\begin{algorithmic}
+\FOR{$r\in Z$} %\COMMENT{Initialization}
+	\STATE DIJSKTRA$(G,r)$
+	\FOR{$s\in Z, (i,j)\in p_{rs}$}
+		\STATE $\hat{x}_{ij}\leftarrow d_{rs}$
+	\ENDFOR
+\ENDFOR
+\RETURN $\hat{x}$
+\end{algorithmic}
+\end{algorithm}
+

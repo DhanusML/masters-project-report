@@ -1,0 +1,68 @@
+In this chapter we will discuss four different algorithms to solve
+the Traffic Equillibrium problem. The first two generates
+the equillibrium link flows and hence are called link-based
+methods. The other two algorithms provide the equillibrium path
+flows and are called path based methods.
+
+All four algorithms proceed in a similar way. We start with
+an initial feasible flow vector and update this vector until
+equillibrium is attained. An important aspect that varies across
+the algorithms is how the flow is updated. Different ways of
+doing this makes one algorithm more efficient than the other.
+
+Another key point is that due to errors in floating point operations,
+it is impossible for the algorithm to converge exactly to the
+equillibrium solution. Also for practical applications, it is
+enough to obtain a solution which is reasonably close to the
+equillibrium. Trying to obtain a higher precision would only
+increase the run-time and yield no benefits.
+This calls for a metric for how close the current solution is
+close to equillibrium. We use \emph{Relativity Gap} to measure this.
+
+\begin{definition}[Relativity Gap]
+	Suppose $x$ is the current link flow solution vector. If $\hat{x}$
+	is the all-or-nothing flow solution (i.e., all flow is
+	assigned to the shortest path between each O-D pair), then
+	the \emph{Shortest Path Travel Time}, SPTT is defined as
+	\[
+		\hbox{SPTT} = \sum_{ij\in A}t_{ij}(x_{ij})\hat{x}_{ij},
+	\]
+	\emph{Total System Travel Time}, TSTT is defined as
+	\[
+		\hbox{TSTT} = \sum_{ij\in A} t_{ij}(x_{ij})x_{ij},
+	\]
+	and finally, the \emph{Relativity Gap}, RG is defined as
+	\[
+		\hbox{RG} = \frac{\hbox{TSTT}}{\hbox{SPTT}}-1
+	\]
+\end{definition}
+
+Observe that at equillibrium, RG must be equal to zero since all
+used paths have minimal travel time. In the current implementations,
+we have used $\hbox{RG}<10^{-4}$ as the stopping condition.
+
+
+\section{Link Based Methods}
+In the link flow methods, the link flows are
+initialized to a feasible flow vector. This flow
+vector is iteratively updated until equillibrium is attained,
+making sure that the updated flows remain feasible
+across the iterations.
+
+In the current implementations, the initial feasible flow
+vector is chosen to be the all or nothing assignment.
+
+\input{algorithms/initialize-link-flow.tex}
+
+\subsection{Method of Successive Averages (MSA)}
+\input{algorithms/msa.tex}
+
+\subsection{Frank Wolfe}
+\input{algorithms/fw.tex}
+
+\section{Path Based Methods}
+\subsection{Gradient Projection}
+\input{algorithms/gp.tex}
+
+\subsection{Greedy}
+\input{algorithms/greedy.tex}
