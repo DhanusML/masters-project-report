@@ -1,5 +1,10 @@
 *
-!iisctheses.sty
+!newstyle.sty
 !iisclogo.sty
 !main.tex
 !.gitignore
+!layout_notes.md
+!header.tex
+!algorithms/
+!theory/
+!introduction/
