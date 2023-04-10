@@ -1,5 +1,6 @@
 *
 !*.tex
+!*.png
 !newstyle.sty
 !iisclogo.sty
 !.gitignore
@@ -8,3 +9,4 @@
 !algorithms/
 !theory/
 !introduction/
+!figures/
