@@ -1,0 +1,48 @@
+\begin{definition}
+	A set $X\subseteq \R^n$ is convex if for $x,y\in X$,
+	$\lambda x + (1-\lambda)y \in X$ for every $\lambda \in [0,1]$.
+\end{definition}
+
+
+\begin{definition}
+	A function $f:X\rightarrow \R$, where $X\subseteq \R^n$ is
+	convex if for any $x,y\in X$,
+	\[
+		f(\lambda x + (1-\lambda)y) \leq \lambda f(x) + (1-\lambda)f(y)
+	\]
+	for every $\lambda \in [0,1]$.
+\end{definition}
+
+
+A few well known results about convex sets and
+convex functions are as follows:
+\begin{enumerate}
+	\item Unions and intersections of convex sets are convex.
+
+	\item A differentiable function is convex if and only if
+	\[
+		f(y)\geq f(x) + \nabla f(x)^T (y-x)\quad \forall x,y\in X
+	\]
+
+	\item A twice differentiable function is convex if and only if
+	its hessian is positive semi-definite at every point in its
+	domain.
+
+	\item If $f$ is a convex function, then the set
+	\[
+		\{x\in X: a< f(x) < b\}\subseteq \R^n
+	\]
+	is convex for $a,b\in \R\cup\{\infty,-\infty\}$ (also true
+	for $<$ replaced with $\leq$).
+
+	\item If $f:\R\rightarrow \R$ is a non-decreasing function,
+	then the function
+	\[
+		g(x) = \int_{0}^x f(t)dt
+	\]
+	is a convex function.
+
+	\item If a differentiable function $f$ is convex in $\R^n$,
+	then $f$ has a unique minima in $X$, which is attained at points
+	where $\nabla f = 0$.
+\end{enumerate}

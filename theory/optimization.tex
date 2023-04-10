@@ -1,0 +1,57 @@
+From the final point in the last section, the minima of an
+unconstrained convex minimization problem is easy to find:
+just solve $\nabla f = 0$. But things get slightly complex
+when constraints are added. A general optimization
+problem looks like the following:
+
+\begin{equation}\label{eq:optimization}
+\begin{split}
+\min& f(x)\\
+\text{s.t}\ g_i(x)\leq& 0\quad i=1,\ldots,l\\
+			h_i(x) = &0\quad i=1,\ldots,m
+\end{split}
+\end{equation}
+The points satisfying the constraints are called feasible points.
+
+The Lagrangian function of the above optimization problem is
+\begin{equation*}
+	\mathcal{L}(x, \lambda, \mu) = f(x) + \sum_{i=1}^l \lambda_i g_i(x)
+	+ \sum_{i=1}^m \mu_i h_i(x)
+\end{equation*}
+Here $\lambda_i$'s and $\mu_i$'s are called Lagrange multipliers.
+
+We will now state a necessary and sufficient condition for
+a point to be the solution of the problem~\eqref{eq:optimization}
+when there are some additional conditions on $f, g_i$ and $h_i$.
+
+\begin{theorem}
+	In problem~\eqref{eq:optimization}, if $f$ and $g_i\,\forall i$
+	are convex functions and $h_i$'s are all linear functions,
+	then the following conditions are necessary and sufficient
+	for $x^*$ to be a minimizer
+	\begin{itemize}
+		\item Gradient condition: $\nabla_x\mathcal{L}
+			(x^*, \lambda^*, \mu^*) = 0$
+
+		\item Primal feasibility: $g_i(x^*)\leq 0$, $\forall i$ and
+			$h_i(x^*) = 0$, $\forall i$
+
+		\item Dual feasibility: $\lambda_i^*\geq 0$, $\forall i$
+
+		\item Complementary slackness: $\lambda_i^*g_i(x^*) = 0$,
+			$\forall i$.
+	\end{itemize}
+\end{theorem}
+
+The conditions on the functions $f, g_i$ and $h_i$ in the
+statement of the theorem
+are called \emph{Slater's constraint qualification conditions}.
+All the optimization problem that we will encounter here satisfy
+these conditions.
+
+The four conditions: \emph{gradient condition, primal feasibility,
+dual feasibility} and \emph{complementary slackness}, are
+called the \emph{Karush-Kuhn-Tucker (KKT)}
+conditions. All the algorithms presented here
+tries to iteratively move towards the KKT condition inorder
+to solve the eq:optimization problems.
