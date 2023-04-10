@@ -1,6 +1,7 @@
 *
 !*.tex
 !*.png
+!*.bib
 !newstyle.sty
 !iisclogo.sty
 !.gitignore
