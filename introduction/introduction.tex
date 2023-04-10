@@ -9,6 +9,19 @@
 	The nodes and arcs in the graph have various attributes
 	like travel-time, distance, cost, number of travellers etc..
 
+	Graph will be denoted as $G= G(N,A)$, where $N$ is the
+	set of nodes and $A$ the set of links.
+	A link from node $i$ to $j$ is represented as a
+	tuple $(i,j)$ (or sometimes simply $ij$),
+	where $i$ is the head node and
+	$j$ is the tail node.
+	A path in the network from node $r$ to node $s$
+	is a sequence of links connecting $r$ and $s$.
+	We will use the notation  $H_{rs}$ for the set of paths between
+	$r$ and $s$, and $H$ for the set of all paths.
+
+
+	\subsection{Travel Time Function}
 	An interesting aspect of the transportation network is that
 	the travel time along a link depends on the number of
 	passengers traversing the link. The more crowded the link
@@ -29,10 +42,40 @@
 	\]
 	where $t_0$ is the free-flow travel time (travel time when
 	the flow is zero). $c$ is the capacity of the link. $b$ and $p$
-	are constant parameters that decides the nature of the link.
+	are constant parameters that decide the nature of the link.
 
-	Graph will be denotes as $G= G(N,A)$, where $N$ is the
-	set of nodes and $A$ the set of links.
-	A link from node $i$ to $j$ is represented as a
-	tuple $(i,j)$, where $i$ is the head node and
-	$j$ is the tail node.
+	\subsection{Demand and Flows}
+	The number of passengers\footnote{A passenger in equillibrium analysis
+	means one vehicle. But there are different kinds of vehicles
+	with different sizes. These things are adjusted by
+	multiplying a constant factor to the flow}
+	in a link at a particular time
+	is called the flow of the link. In practice, flow can take
+	only integer value. But that would result in a discrete optimization
+	problem, which are computationally difficult to solve. So we assume flows
+	to be real valued. This significantly reduces the computational
+	complexity of the problem and in fact reduces it to a convex
+	optimization problem, which are computationally easy.
+
+	Different nodes in the network will have different number of
+	people travelling between them. A link connecting two major
+	cities for instance will have more people travelling in it
+	than a link between a city and a village.
+	The number of people who travel from origin $r$ to destination
+	$s$ on average is called the demand between $r$ and $s$. We
+	will denote this by $d_{rs}$. A matrix containing demand information
+	of all origin-destination pairs, $[d_{rs}]_{(r,s)\in Z^2}$,
+	is called the \emph{OD matrix} or \emph{trip table}.
+
+
+	\subsection{Shortest Paths}
+	The shortest path problem is to find a path between given origin
+	and destination with least travel time.
+	In the problem of finding equillibrium flows in a traffic network,
+	finding shortest paths between origin and destination pairs
+	become a subproblem.
+	There are many algorithms for finding shortest path in a graph.
+	The one we will use is the well known \emph{Dijkstra's Algorithm}.
+	The pseudocode for this is given in algorithm \ref{alg:dijkstra}.
+	
+	\input{introduction/dijkstra.tex}

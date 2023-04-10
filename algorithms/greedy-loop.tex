@@ -1,11 +1,12 @@
 \begin{algorithm}
 \caption{GreedyLoop$(H_{rs})$}
+\label{greedy-loop}
 \begin{algorithmic}[1]
 
 \STATE The current solution is $\{g_h: h\in H_{rs}\}$
 \FOR{$h\in H_{rs}$}
-	\STATE Compute $v_h^g$ and $s_h^g$ according to ---fill----
-	\STATE Comput $c_g^g$ according to ---fill----
+	\STATE Compute $v_h^g$ and $s_h^g$ according to \eqref{eq:v}
+	\STATE Comput $c_g^g$ according to \eqref{eq:c}
 \ENDFOR
 
 \STATE Sort paths $h\in H_{rs}$ accroding to the increasing

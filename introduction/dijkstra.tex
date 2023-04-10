@@ -1,0 +1,22 @@
+\begin{algorithm}
+\caption{DIJKSTRA(G, r)}
+\label{alg:dijkstra}
+\begin{algorithmic}[1]
+
+\STATE $S\leftarrow \emptyset,\, \bar{S}\leftarrow [N]$
+\STATE $\mu_r\leftarrow 0,\, \pi_r\leftarrow r$
+\STATE $\mu_i\leftarrow \infty,\, \pi_i\leftarrow -1\, \forall\, i\in [N]\setminus \{r\}$
+
+\WHILE{$\bar{S}\neq \emptyset$}
+	\STATE $i\leftarrow \arg\min_{j\in\bar{S}} \mu_j$
+	\STATE $S\leftarrow S\cup \{i\},\, \bar{S}\leftarrow \bar{S}\setminus \{i\}$
+	\FOR{$j: (i,j)\in A$}
+		\IF{$\mu_j > \mu_i + t_{ij}$}
+			\STATE $\mu_j\leftarrow \mu_i + t_{ij}$
+			\STATE $\pi_j \leftarrow i$
+		\ENDIF
+	\ENDFOR
+\ENDWHILE
+
+\end{algorithmic}
+\end{algorithm}

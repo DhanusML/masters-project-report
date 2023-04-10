@@ -1,5 +1,168 @@
 The greedy method tries to minimize a quadratic approximation of the
 Beckman function unlike the other algorithms we have seen so far.
+The other key difference between this algorithm and the Gradient
+Projection algorithm in the previous section is a greedy inner
+loop. Instead of adding new paths to the used paths set in
+every iteration, the present algorithm iterates over the current
+used paths sets. This brings the flow solution close to equillibrium
+with the current set of paths and thus reduces the number of
+iterations of the shortest path algorithm required.
+
+
+\subsubsection*{Quadratic Approximation}
+Let us begin with analyzing the quadratic approximation of the
+Beckman function.
+Consider the Beckman function for the case of a single OD pair,
+$(r,s)$.
+\[
+	z_{rs} = \sum_{ij\in A}\int_{0}^{x_{ij}^- + x_{ij}^{rs}} t_{ij}(\omega)d\omega,
+\]
+where $x_{ij}^-$ are flows contributed to the link $ij$ due to all
+OD pairs other than $r,s$ and $x_{ij}^{rs}$ is the flow contributed
+by the OD pair $r,s$.
+
+The second order Taylor expansion of the above function is
+\[
+	\hat{z}_{rs}(f) \approx z_{rs}(g) +
+	\sum_{h\in H_{rs}}\frac{\partial z_{rs}}{\partial f_h}\bigg|_{g}
+	(f_h-g_h)+
+	\sum_{h\in H_{rs}} \frac{\partial ^2 z_{rs}}{\partial f_h^2}\bigg|_g(f_h-g_h)^2
+\]
+
+Introduce constants
+\begin{align}
+\frac{\partial z_{rs}}{\partial f_h}\big|_{g}&=
+\sum_{(i,j)\in A}\delta_{ij}^h t_{ij}(x_{ij}^g)
+=: v_h^g \label{eq:v} \\
+\frac{\partial ^2 z_{rs}}{\partial f_h^2}\big|_g &=
+\sum_{(i,j)\in A} \delta_{ij}^h t'_{ij}(x_{ij}^g)
+=: s_h^g\label{eq:s}.
+\end{align}
+
+The Taylor expansion can be then simplified to
+\[
+	\sum_{h\in H_{rs}}\big[(v_h^g - s_h^g g_h)f_h + \frac{1}{2}
+	s_h^g f_h^2 + (s_h^g g_h^2 - v_h^g g_h)\big]
+\]
+
+Observe that the term $(s_h^g g_h^2 - v_h^g g_h)$ is a constant.
+So the quadratic approximation to the original optimization
+problem becomes:
+
+\begin{equation}
+\begin{split}
+        &\min \sum_{h\in H_{rs}}\big[(v_h^g - s_h^g g_h)f_h +
+		\frac{1}{2} s_h^g f_h^2\big]\\
+		&\text{s.t}\, \sum_{h\in H_{rs}} f_h = d_{rs}
+		\text{ and } f_h\geq 0 \, \forall h\in H_{rs}
+\end{split}
+\end{equation}
+
+
+\subsubsection*{KKT Conditions}
+The Lagrangian of the problem is
+\[
+\mathcal{L}(f, \lambda, w_{rs}) =
+\sum_{h\in H_{rs}}\big[(v_h^g - s_h^g g_h)f_h+
+\frac{1}{2} s_h^g f_h^2\big]
+-\sum_{h\in H_{rs}}\lambda_h f_h
+-w_{rs}\Big(\sum_{h\in H_{rs}}f_h - d_{rs}\Big)
+\]
+
+The gradient condition implies
+\[
+0 = \nabla_h\mathcal{L} = v_h^g + s_h^g(f_h-g_h) - w_{rs}-\lambda_h,
+\,\forall\, h\in H_{rs}
+\]
+
+From the dual feasibility condition and complementary slackness
+conditions, we also have
+\begin{align}
+v_h^g + s_h^g(f_h-g_h) - w_{rs}\geq 0\label{eq:kkt:1}\\
+f_h(v_h^g + s_h^g(f_h-g_h) - w_{rs}) = 0\label{eq:kkt:2}
+\end{align}
+
+Similar to what we saw in section \ref{sec:beckman}, $w_{rs}$ is the
+shortest path travel time from source $r$ to destination $s$.
+Also observe that the other term, $v_h^g + s_h^g(f_h-g_h)$,
+is a linear approximation for the travel time at flow $f$,
+given the flow solution at flow values $g$.
+
+
+\subsubsection*{Flow Update}
+Suppose we have a feasible flow vector $g$. An iteration
+of the algorithm must find a new vector $f$, which is
+closer to the optimal point than $g$ is. This section
+describes the motivation for chosing the update rule used
+in the greedy algorithm.
+
+Before describing the algorithm, let us first introduce few
+constants, that would make the presentation of the algorithm
+notationally convinient.
+
+\begin{equation}\label{eq:c}
+	c_h^g := v^g_h - s_h^g g_h
+\end{equation}
+
+If the set of used paths ($f_h>0$ for these paths)
+$\hat{H}_{rs}$ is known, the 
+conditions \eqref{eq:kkt:1} and \eqref{eq:kkt:2} imply
+
+\begin{equation}\label{eq:gr:temp1}
+	v_h^g + s_h^g(f_h-g_h) = \bar{w}_{rs},\quad \forall h\in
+	\hat{H}_{rs}.
+\end{equation}
+The flow conservation constraint now becomes
+\begin{equation}\label{eq:gr:temp2}
+	\sum_{h\in \hat{H}_{rs}} f_h = d_{rs}.
+\end{equation}
+Dividing \eqref{eq:gr:temp1} by $s_h^g$ and summing over
+$h\in \hat{H}_{rs}$, we get
+\begin{equation}\label{eq:w}
+	\bar{w}_{rs} = \frac{d_{rs} + \sum_{h\in \hat{H}_{rs}}c_h^g/s_h^g}
+	{\sum_{h\in \hat{H}_{rs}}1/s_h^g}
+\end{equation}
+
+Observe that $\bar{w}_{rs}$ only depends on the current flow solution
+$g$. The value of $\bar{w}_{rs}$ can be now substituted
+into \eqref{eq:gr:temp1} to get
+\begin{equation}\label{eq:flow}
+	f_h = \bar{w}_{rs}/s_h^g - c_h^g/s_h^g.
+\end{equation}
+
+So given a set of used paths $H_{rs}$, performing flow update
+using \eqref{eq:flow} would bring the flow solution closer
+to satisfying the KKT conditions \eqref{eq:kkt:1} and \eqref{eq:kkt:2}.
+The pseudocode for this flow update is given in
+algorithm \ref{greedy-alg}.
+
+
+\subsubsection{Implementation}
+The pseudocode for the implementation of the greedy algorithm
+is given in algorithm \ref{greedy-alg}. This algorithm calls
+another function (algorithm \ref{greedy-loop}) which performs
+flow updates based on the
+update rule suggested in the previous section.
+
+In each iteration of the greedy algorithm, the shortest
+path between each OD pair is computed and is pushed
+into the used paths set. Flow adjustments are then made
+to the used paths sets using the greedy-loop (algorithm \ref{greedy-loop}).
+Lines 4 to 12 of algorithm \ref{greedy-alg} does this.
+The main reason for the novelty of this algorithm comes
+from the lines 14 to 29 of algorithm \ref{greedy-alg}
+The quantity $\Delta_{rs}$ (line 19) is computed for each OD pair,
+which represents the amount of variation in travel time present
+within the set of used paths. If this quantity is high,
+path flow adjustments are made within the set so as to equalize the
+travel times of the paths in the set of used paths.
+
+The threshold for deciding whether $\Delta_{rs}$ is high enough also
+varies across iterations. It is chosen to be equal to $\hbox{RG}/2$.
+So for initial iterations, we allow for a larger variation, and
+the restriction on the spread of travel time within the used
+path set become stricter as the algorithm progresses.
+
 
 \input{algorithms/greedy-loop.tex}
 
