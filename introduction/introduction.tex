@@ -1,3 +1,18 @@
+Planning helps ensure that transportation spending and policies
+are as effective as possible. Since building infrastructure
+is an expensive and time consuming deed, models
+models which predict the impact of potential projects
+or policies are used. The Traffic Equillibrium problem
+is to find out the steady state usage of road network
+infrastructure. This steady state usage is called
+equillibrium of the network. Once this is obtained,
+one can do a variety of things like redesigning the
+road network to avoid congestion, set up tolls
+to maximize profit, etc.. This chapter will introduce
+the mathematical tools required to study the traffic
+equillibrium problem. Further chapters states the equillibrium
+problem formally and gives methods to compute the equillibrium.
+
 \section{Representation of Transport Networks}
 	The first step in finding equillibrium solution is to
 	model the traffic network in a form that can be handled
@@ -79,3 +94,13 @@
 	The pseudocode for this is given in algorithm \ref{alg:dijkstra}.
 	
 	\input{introduction/dijkstra.tex}
+
+\section{Overview}
+The next chapter~\ref{chapter:math} recalls some facts
+related to convex optimization
+and mathematically states the definition of traffic equillibrium.
+The chapter after that (chapter~\ref{chapter:alg}) discusses the four
+algorithms, namely MSA, Frank Wolfe, Gradient Projection and
+greedy method. The final chapter (chapter~\ref{chapter:results})
+gives the results obtained after running the implementation of
+these algorithms on real life networks.

@@ -12,9 +12,12 @@
 
 \begin{frontmatter}
 \title{Algorithms for Traffic Assignment}
-\author{Dhanus M Lal}
+\author{Dhanus M Lal\\
+	Advisor: Tarun Rambha}
 \submitdate{April 2023}
-
+\dept{Department of Mathematics}
+\degreein{Mathematics}
+\me
 \iisclogotrue
 \maketitle
 \end{frontmatter}
@@ -24,15 +27,16 @@
 \chapter{Introduction}
 \input{introduction/introduction.tex}
 
-\chapter{Theory}
+\chapter{Theory}\label{chapter:math}
 \input{theory/theory.tex}
 
-\chapter{Algorithms}
+\chapter{Algorithms}\label{chapter:alg}
 \input{algorithms/algorithms.tex}
 
-\chapter{Experiments and Results}
+\chapter{Experiments and Results}\label{chapter:results}
 \input{experiments/experiments.tex}
 
+\nocite{tarun, boyles}
 \bibliography{references}
 \bibliographystyle{plain}
 \end{document}
