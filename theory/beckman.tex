@@ -13,7 +13,84 @@ Under a mild assumption that the link travel times
 are increasing functions of the corresponding link flows,
 the Beckman function is convex. % insert reference to appendix or
 								% some other section here
-The flow constraints on the link flows are
-\[
-	\sum_{p\in P_{rs}}y_p = d_{rs}
-\]
+
+If the path flow vector is $f$ ($\{f_h: h\in H\}$, where $H$ is the
+set of all paths), the Beckman function can be written as a function
+of $f$ as well because we have
+\begin{equation}\label{linktopath}
+	x_{ij} = \sum_{(r,s)\in Z^2}\sum_{h\in H_{rs}} f_h \delta_{ij}^h.
+\end{equation}
+
+The constraints on the path flow are that they
+\emph{must be non-negative} and
+\begin{equation}\label{pathconstr}
+	\sum_{h\in H_{rs}} f_h = d_{rs} \quad \forall (r,s)\in Z^2.
+\end{equation}
+
+
+The optimization problem therefore becomes:
+
+\begin{equation}\label{optprob}
+\begin{split}
+	&\min \sum_{i,j\in A}\int_{0}^{x_{ij}}t_{ij}(\omega)d\omega\hfill\\
+	\text{where, } \, &x_{ij} =
+	\sum_{(r,s)\in Z^2}\sum_{h\in H_{rs}} f_h \delta_{ij}^h.\\
+	\text{s.\ t }\, f_h\geq 0\,&\text{ and }\,
+	\sum_{h\in H_{rs}}f_h = d_{rs}\,\forall (r,s)\in Z^2.
+\end{split}
+\end{equation}
+
+This is a convex optimization problem, since the objective is
+convex and the constraints are linear. Moreover, the constraints
+also satisfy Slater's constraint qualification conditions.
+Thus KKT conditions for this problem are both necessary and
+sufficient.
+
+\begin{theorem}
+	Solution of the optimization problem \eqref{optprob} gives
+	the equillibrium path flow vector.
+\end{theorem}
+
+\begin{proof}
+	From the previous paragraph, $f$ solves \eqref{optprob} if and
+	only if it satisfies the KKT conditions. So, we will first write
+	down the KKT conditions.
+
+	The Lagrangian is
+	\[
+		\mathcal{L}(f, \lambda, \mu) =
+			\sum_{i,j\in A}\int_{0}^{x_{ij}}t_{ij}(\omega)d\omega
+			-\sum_{h\in H} \lambda_h f_h -
+			\sum_{(r,s)\in Z^2}\Big(\sum_{h\in H_{rs}} f_h - d_{rs}\Big).
+	\]
+	The gradient condition gives:
+	\[
+		\nabla_h \mathcal{L} = \sum_{ij\in A}t_{ij}(x_{ij})\delta_{ij}^h
+		- \lambda_h - \mu_{rs} = 0\, \forall \, h\in H_{rs}.
+	\]
+	From dual feasibility condition, we have $\lambda_h\geq 0$ for
+	every path $h\in H_{rs}$. So,
+	\[
+		\lambda_h = \sum_{ij\in A}t_{ij}(x_{ij})\delta_{ij}^h
+		-\mu_{rs} \geq 0.
+	\]
+	Also by complementary slackness, $\lambda_h f_h = 0$ for
+	every path. Thus
+	\[
+		f_h\Big( \sum_{ij\in A}t_{ij}(x_{ij})\delta_{ij}^h
+		-\mu_{rs}\Big) = 0.
+	\]
+	So, if $f_h\neq 0$, the other term, $\sum_{ij\in A}t_{ij}(x_{ij})\delta_{ij}^h -\mu_{rs}$
+	must be zero. Upon careful inspection, the first term in the sum
+	is the travel time on path $h$ under the current flow
+	conditions.
+	Thus
+	\[
+		\tau_h = \mu_{rs}\, \forall\, h\in H_{rs}.
+	\]
+	This means every used path between a given origin-destination
+	pair must have equal travel time (equal to $\mu_{rs}$).
+	The fact that the travel time is minimal is clear from the
+	inequality $\lambda_h = \sum_{ij\in A}t_{ij}(x_{ij})\delta_{ij}^h
+		-\mu_{rs} \geq 0$.
+\end{proof}

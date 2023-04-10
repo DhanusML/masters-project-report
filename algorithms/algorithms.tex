@@ -66,6 +66,14 @@ In path flow methods, the path flows are first initialized to a
 feasible flow vector. This flow vector iteratively gets updated
 till equillibrium is attained, making sure that the flow
 vector remains in the feasible region.
+This requires storing and manipulating a set of paths for each O-D
+pair, which was traditionally considered to be very memory intensive
+and time consuming. But with the improvements in computational
+technology, computers have enough RAM capacity and clock speed
+to make this method feasible even for larger networks.
+In this section, we will see two path based algorithms namely
+\emph{Gradient Projection} and a much more recent algorithm,
+which we will call \emph{Greedy}\cite{xie}.
 
 Similar to the link based methods, the initial flow vector is
 chosen to be the all or nothing solution, where all the demand

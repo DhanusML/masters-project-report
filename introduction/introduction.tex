@@ -1,0 +1,38 @@
+\section{Representation of Transport Networks}
+	The first step in finding equillibrium solution is to
+	model the traffic network in a form that can be handled
+	mathematically by a computer.
+	Traffic network will be represented as a directed graph.
+	Nodes in the graph would represent intersections and
+	the \emph{edges/arcs/links} connecting the nodes represents
+	the roadway connecting them.
+	The nodes and arcs in the graph have various attributes
+	like travel-time, distance, cost, number of travellers etc..
+
+	An interesting aspect of the transportation network is that
+	the travel time along a link depends on the number of
+	passengers traversing the link. The more crowded the link
+	is, higher is the travel time. The travel time along a
+	link could also depend on other factors like length of
+	the link and the quality of road, etc.. Thus each link
+	in the network has a travel time function associated
+	with it, which is a function of the number of passengers in the
+	link. Each link would also have a threshold on the maximum
+	passengers it can hold. This is called the capacity of the
+	link. We would want the travel time function of a link
+	to blow up once the link exceeds its capacity. There are
+	various functions that are used to model link travel times.
+	The one we will be using is the \emph{Bereau of Public Roads}
+	function (BPR function), which is given by:
+	\[
+		t(x) = t_0(1 + b(x/c)^{p})
+	\]
+	where $t_0$ is the free-flow travel time (travel time when
+	the flow is zero). $c$ is the capacity of the link. $b$ and $p$
+	are constant parameters that decides the nature of the link.
+
+	Graph will be denotes as $G= G(N,A)$, where $N$ is the
+	set of nodes and $A$ the set of links.
+	A link from node $i$ to $j$ is represented as a
+	tuple $(i,j)$, where $i$ is the head node and
+	$j$ is the tail node.
