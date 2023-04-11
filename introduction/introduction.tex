@@ -1,106 +1,40 @@
 Planning helps ensure that transportation spending and policies
 are as effective as possible. Since building infrastructure
-is an expensive and time consuming deed, models
-models which predict the impact of potential projects
-or policies are used. The Traffic Equillibrium problem
+is an expensive and time consuming deed, models which predict the impact of potential projects
+or policies are helpful to evaluate the impacts of long-range decisions. The Traffic equilibrium problem
 is to find out the steady state usage of road network
-infrastructure. This steady state usage is called
-equillibrium of the network. Once this is obtained,
-one can do a variety of things like redesigning the
-road network to avoid congestion, set up tolls
-to maximize profit, etc.. This chapter will introduce
-the mathematical tools required to study the traffic
-equillibrium problem. Further chapters states the equillibrium
-problem formally and gives methods to compute the equillibrium.
+infrastructure. Once this solution is obtained,
+one can use it for variety of applications like redesigning the road network to avoid congestion, set up tolls to maximize profit, etc.. This chapter will introduce the mathematical tools required to study the traffic equilibrium problem. Further chapters states the equilibrium problem formally and gives methods to compute the equilibrium.
 
 \section{Representation of Transport Networks}
-	The first step in finding equillibrium solution is to
-	model the traffic network in a form that can be handled
-	mathematically by a computer.
-	Traffic network will be represented as a directed graph.
-	Nodes in the graph would represent intersections and
-	the \emph{edges/arcs/links} connecting the nodes represents
-	the roadway connecting them.
-	The nodes and arcs in the graph have various attributes
-	like travel-time, distance, cost, number of travellers etc..
+The first step in finding equilibrium solution is to model the traffic network in a form that can be handled mathematically by a computer. Traffic network will be represented as a directed graph. \textit{Nodes} in the graph would represent intersections and the \emph{edges/arcs/links} connecting the nodes represents the roadway connecting them. The nodes and arcs in the graph have various attributes like travel-time, distance, cost, number of travelers, etc.
 
-	Graph will be denoted as $G= G(N,A)$, where $N$ is the
-	set of nodes and $A$ the set of links.
-	A link from node $i$ to $j$ is represented as a
-	tuple $(i,j)$ (or sometimes simply $ij$),
-	where $i$ is the head node and
-	$j$ is the tail node.
-	A path in the network from node $r$ to node $s$
-	is a sequence of links connecting $r$ and $s$.
-	We will use the notation  $H_{rs}$ for the set of paths between
-	$r$ and $s$, and $H$ for the set of all paths.
+Graph will be denoted as $G=(N,A)$, where $N$ is the set of nodes and $A$ the set of links.	A link from node $i$ to $j$ is represented as a	tuple $(i,j)$ (or sometimes simply $ij$),	where $i$ is the head node and $j$ is the tail node. A path in the network from node $r$ to node $s$	is a sequence of links connecting $r$ and $s$. We will use the notation $H_{rs}$ for the set of paths between $r$ and $s$, and $H$ for the set of all paths.
 
 
-	\subsection{Travel Time Function}
-	An interesting aspect of the transportation network is that
-	the travel time along a link depends on the number of
-	passengers traversing the link. The more crowded the link
-	is, higher is the travel time. The travel time along a
-	link could also depend on other factors like length of
-	the link and the quality of road, etc.. Thus each link
-	in the network has a travel time function associated
-	with it, which is a function of the number of passengers in the
-	link. Each link would also have a threshold on the maximum
-	passengers it can hold. This is called the capacity of the
-	link. We would want the travel time function of a link
-	to blow up once the link exceeds its capacity. There are
-	various functions that are used to model link travel times.
-	The one we will be using is the \emph{Bereau of Public Roads}
-	function (BPR function), which is given by:
-	\[
-		t(x) = t_0(1 + b(x/c)^{p})
-	\]
-	where $t_0$ is the free-flow travel time (travel time when
-	the flow is zero). $c$ is the capacity of the link. $b$ and $p$
-	are constant parameters that decide the nature of the link.
+\subsection{Travel Time Function}
+An interesting aspect of the transportation network is that the travel time along a link depends on the number of passengers traversing the link. The more crowded the link is, higher is the travel time. The travel time along a link could also depend on other factors like length of the link and the quality of road, etc. Thus each link in the network has a travel time function associated with it, which is a function of the number of passengers in the link. Each link would also have a threshold on the maximum rate of passengers that can flow through it. This is called the capacity of the link. We do not explicitly add capacity constraints but pick travel time functions that exhibits a steep increase as soon as a link exceeds its capacity. There are	various functions that are used to model link travel times. The one we will be using is the \emph{Bureau of Public Roads} function (BPR function), which is given by:
+\begin{align*}
+	t_{ij}(x_{ij}) = t^0_{ij}(1 + b(x_{ij}/c_{ij})^{p})
+\end{align*}
 
-	\subsection{Demand and Flows}
-	The number of passengers\footnote{A passenger in equillibrium analysis
-	means one vehicle. But there are different kinds of vehicles
-	with different sizes. These things are adjusted by
-	multiplying a constant factor to the flow}
-	in a link at a particular time
-	is called the flow of the link. In practice, flow can take
-	only integer value. But that would result in a discrete optimization
-	problem, which are computationally difficult to solve. So we assume flows
-	to be real valued. This significantly reduces the computational
-	complexity of the problem and in fact reduces it to a convex
-	optimization problem, which are computationally easy.
+where $t^0_{ij}$ is the free-flow travel time (travel time when the flow is zero). $c_{ij}$ is the capacity of the link. $b$ and $p$ are constant parameters that decide the nature of the link.
 
-	Different nodes in the network will have different number of
-	people travelling between them. A link connecting two major
-	cities for instance will have more people travelling in it
-	than a link between a city and a village.
-	The number of people who travel from origin $r$ to destination
-	$s$ on average is called the demand between $r$ and $s$. We
-	will denote this by $d_{rs}$. A matrix containing demand information
-	of all origin-destination pairs, $[d_{rs}]_{(r,s)\in Z^2}$,
-	is called the \emph{OD matrix} or \emph{trip table}.
+\subsection{Demand and Flows}
+The number of passengers\footnote{A passenger in equilibrium analysis means one vehicle. But there are different kinds of vehicles	with different sizes. These things are adjusted by multiplying a constant factor to the flow} in a link at a particular time	is called the flow of the link. In practice, flow can take only integer valued. But that would result in a discrete optimization problem, which is computationally difficult to solve. So we assume flows to be real valued. This significantly reduces the computational	complexity of the problem and in fact reduces it to a convex optimization problem, which is computationally easy.
+
+Different nodes in the network will have different number of people traveling between them. A link connecting two major cities for instance will have more people traveling in it	than a link between a city and a village. The number of people who travel from origin $r$ to destination $s$ on average is called the demand between $r$ and $s$. We will denote this by $d_{rs}$. A matrix containing demand information of all origin-destination pairs,
+ $[d_{rs}]_{(r,s)\in Z^2}$,
+is called the \emph{OD matrix} or \emph{trip table}.
 
 
-	\subsection{Shortest Paths}
-	The shortest path problem is to find a path between given origin
-	and destination with least travel time.
-	In the problem of finding equillibrium flows in a traffic network,
-	finding shortest paths between origin and destination pairs
-	become a subproblem.
-	There are many algorithms for finding shortest path in a graph.
-	The one we will use is the well known \emph{Dijkstra's Algorithm}.
-	The pseudocode for this is given in algorithm \ref{alg:dijkstra}.
+\subsection{Shortest Paths}
+The shortest path problem is to find a path between given origin and destination with least travel time. In the problem of finding equilibrium flows in a traffic network, finding shortest paths between origin and destination pairs become a subproblem. There are many algorithms for finding shortest path in a graph.The one we will use is the well known \emph{Dijkstra's Algorithm}. The pseudocode for this is given in algorithm \ref{alg:dijkstra}. The optimal distance labels for nodes in the graph are represented using $\mu$. The optimal paths are reconstructed using the predecessor labels $\pi$.
 	
-	\input{introduction/dijkstra.tex}
+\input{introduction/dijkstra.tex}
 
 \section{Overview}
 The next chapter~\ref{chapter:math} recalls some facts
-related to convex optimization
-and mathematically states the definition of traffic equillibrium.
-The chapter after that (chapter~\ref{chapter:alg}) discusses the four
-algorithms, namely MSA, Frank Wolfe, Gradient Projection and
-greedy method. The final chapter (chapter~\ref{chapter:results})
-gives the results obtained after running the implementation of
+related to convex optimization and mathematically states the definition of traffic equilibrium.
+The chapter after that (chapter~\ref{chapter:alg}) discusses the four algorithms, namely MSA, Frank Wolfe, Gradient Projection and greedy method. The final chapter (chapter~\ref{chapter:results}) gives the results obtained after running the implementation of
 these algorithms on real life networks.
