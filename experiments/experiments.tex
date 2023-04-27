@@ -1,4 +1,6 @@
 \section{Experiments}
+
+\subsection{Python Implementations}
 All the algorithms mentioned in the previous chapter were implemented
 using python. The stopping criterion for the algorithms were
 $\hbox{RG}<10^{-4}$. The algorithms were run on different networks:
@@ -11,6 +13,24 @@ $\hbox{RG}<10^{-4}$. The algorithms were run on different networks:
 \end{itemize}
 
 Details of the networks are given in table \ref{table:networksdim}
+
+\subsection{C++ Implementation and Comparison with Algorithm B}
+The greedy algorithm was implemented using c++ in the hope of
+faster run-time than the python implementation. This was compared
+with the run-time of an existing C++ implementation of Algorithm B.
+The performance of the greedy algorithm and Algorithm B are compared
+on different networks:
+
+\begin{itemize}
+	\item Anaheim
+	\item Chicago Sketch
+	\item Eastern Massachusetts
+	\item Sioux Falls
+	\item Chicago Regional
+	\item Bangalore
+\end{itemize}
+
+
 \input{experiments/netdim-table.tex}
 
 
@@ -27,7 +47,6 @@ against number of iterations plot is given in figure \ref{plots}.
 \section{Conclusions}
 From the experimental data, the greedy algorithm clearly outperforms
 other algorithms.
-But for large networks the current implementation
+But for large networks, the python implementation
 failed to give results within reasonable amount of time.
-A more efficient implementation using a faster language would
-solve this.
+This limitation was overcome by the C++ implementation.
