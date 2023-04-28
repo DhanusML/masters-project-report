@@ -14,10 +14,12 @@ $\hbox{RG}<10^{-4}$. The algorithms were run on different networks:
 
 Details of the networks are given in table \ref{table:networksdim}
 
+
 \subsection{C++ Implementation and Comparison with Algorithm B}
 The greedy algorithm was implemented using c++ in the hope of
 faster run-time than the python implementation. This was compared
 with the run-time of an existing C++ implementation of Algorithm B.
+The stopping criterion used was $\hbox{RG}<10^{-5}$.
 The performance of the greedy algorithm and Algorithm B are compared
 on different networks:
 
@@ -35,6 +37,7 @@ on different networks:
 
 
 \section{Results}
+\subsection{Python Implemenations}
 The run time of the algorithm, is recorded for all four networks.
 The Relative Gap after each iteration is also recorded for the algorithms.
 Results are given in table \ref{table:resulttable}. The Relativity Gap
@@ -43,6 +46,14 @@ against number of iterations plot is given in figure \ref{plots}.
 \input{experiments/result-table.tex}
 
 \input{experiments/include-figures.tex}
+
+
+\subsection{C++ Implementation}
+The run-time and number of iterations for all the networks were
+recorded. Results are given in table \ref{table:resulttable-cpp}.
+
+\input{experiments/result-table-cpp}
+
 
 \section{Conclusions}
 From the experimental data, the greedy algorithm clearly outperforms
